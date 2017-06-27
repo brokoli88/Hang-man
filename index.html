@@ -10,10 +10,12 @@
         <div>
             <div id="demo"></div>
                 <h3>Ukucajte slovo</h3>
-            <input id="input" type="text" maxlength="1">
-            <button id="submit" type="submit" onclick="showLetter()">Submit</button>
+            <input id="letter" type="text" maxlength="1" minlength="1" name="letter" placeholder="Guess a letter">
+            <button id="guess" name="guess" type="submit" onclick="showLetter()">Guess</button>
             <button id="playAgain" type="submit" onclick="playAgain()">Play again</button>
         <div id="view"></div>
+            <!-- Za poruku kasnije --> 
+            <div id="message"></div> 
         </div>
     <script src="main.js"></script> 
     </body>
