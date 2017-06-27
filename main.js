@@ -1,56 +1,43 @@
+// !!!!pokazuje da je letter == word[i]>>> true samo ukoliko je id-letter, ukoliko je id-view(iako je ista prenesena vrednost tj.slovo) pokazuje false ... U oba slucaja registruje slovo kao string...
+
+var letter = document.getElementById("letter").textContent;
 var words = ["pas", "drvo", "sunce", "zgrada"];
-var letter = document.getElementById("view").value;
+//Pick a random word
+var word = words[Math.floor(Math.random() * words.length)];
+var addedWord = [];
+
+
+//Replace random choosen word with "_"
+for (var i = 0; i < word.length; i++) {
+    addedWord[i] = "_";
+    document.getElementById("demo").textContent = addedWord;
+}
+var remainingLetters = word.length;
 
 //Show letter that is typed in input field in square below
 function showLetter() {
-    var inputLetter = document.getElementById("input").value;
+    var inputLetter = document.getElementById("letter").value;
     document.getElementById("view").innerHTML = inputLetter;
-    corectLetter(letter);
-}; 
-
-//Choose random word from array of words for one game
-var word = words[Math.floor(Math.random() * words.length)];
-
-//Replace random choosen word with _
-var seeWord = document.getElementById("demo").innerHTML;
-document.getElementById("demo").innerHTML = word.replace(/./g, " _ ");
+    //guess(letter);
+};
+    
+    //Show correct letter instead of _
+/*function guess(letter) {
+    Treba da uradi loop kroz rec i da pronadje slovo koje je isto kao ukucano
+    for (j = 0; 0 < word.length; j++) {
+        if (letter === word[j]) {
+        console.log("jeeej");
+        word[j] = letter;
+        } 
+     }
+};*/
 
 //On Play again button, start all over game (empty fields and new random word)
 function playAgain() {
-    document.getElementById("input").value = null;
+    document.getElementById("letter").value = null;
     showLetter();
 }
-
     
-//Show correct letter instead of _
-function corectLetter(letter) {
-    for (var i=0; i < word.length; i++) {
-        var inputLetter = document.getElementById("input").value;
-        document.getElementById("view").innerHTML = inputLetter;
-        if(word[i] === inputLetter) {
-            document.getElementById("demo").innerHTML = word[i];
-            word[i]= inputLetter;
-            //Menja celu rec za slovo, umesto da menja samo slova koja su ista kao pogodjeno slovo
-            
-            
-           //alert ("Great!");
-           //console.log("You guessed a letter! Great!");
-        } 
-    }   
-}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //
         
     
     
