@@ -223,6 +223,138 @@ function playAgain() {
 
 
 
+////novaaaaaaaaa
+var words = ["pas", "drvo"];
+var messages = {
+            win: 'You win!',
+            lose: 'Game over!',
+            guessed: 'Please try another letter...',
+            validLetter: 'Please enter a letter from A-Z'
+        };
+
+//Choosing random current word from words
+var word = words[Math.floor(Math.random() * words.length)];
+
+
+//Output messages 
+var output = document.getElementById("output").textContent;
+
+
+//Used letters message
+var usedLetters = document.getElementById("usedLetters").value;
+usedLetters = [];
+
+var guess = document.getElementById("letter").value;
+
+//Message to show how many lives do you have
+var lives = 5;
+var message = document.getElementById("message");
+message.innerHTML = 'You have ' + lives + ' lives remaining';
+        
+ 
+//Display letters of current word in div
+var letters = document.getElementById("letters");
+letters.innerHTML = addedWord;
+//Remaining word
+var remainingLetters = word.length;
+
+//Replace random word with "_"
+var addedWord = [];
+for (var i = 0; i < word.length; i++) {
+    addedWord[i] = "_";
+    letters.textContent = addedWord;
+};
+letters.textContent = addedWord.join(' ');
+var remainingLetters = word.length;
+ 
+//Check if guess is equal to letter in the word
+ function guessLetter() {
+	 guess = document.getElementById("letter").value;
+	// If blank input is submitted
+	if (guess === "") {
+        //output.innerHTML += messages.validLetter;
+        console.log(output);
+        
+        
+		} else {
+		//Loop all letters in word and find same letter
+            var match = false;
+			for ( var i = 0; i < word.length; i ++)  {
+                //If guess is correct, change it from _ to guess
+				   if (word[i] == guess) {
+                     addedWord[i] = guess;
+                       match = true;
+                       break;
+				}  	
+			}	
+            if (!match){
+                    output.innerHTML += messages.guessed;
+                    document.getElementById("usedLetters").textContent += guess;
+			         lives--;
+                    //Function which prevent repeating wrong guesses letter in array
+                dontRepeat();
+	               function dontRepeat() {
+                       //Create array of duplicates
+                       var duplicates = [];
+                        
+                       // Find if there is a duplicate or not
+                        if (data.indexOf(element, index + 1) > -1) {
+                            // Find if the element is already in the result array or not
+      if (result.indexOf(element) === -1) {
+        result.push(element);
+
+                       
+                       usedLetters ;
+                        for ( i = 0; i < usedLetters.length; i++) {
+                            if (usedLe[i] > 1 || usedLetters.indexOf(usedLetters[i]) !== 1 ) {
+                duplicates.push(usedLetters[i]);  
+                                console.log(duplicates);
+                }
+        }
+                       console.log(duplicates);
+    }
+                
+                    
+                } 
+
+		} 
+     letters.innerHTML = addedWord.join(" ");
+      //Makes blank input  after finishing the function
+	document.getElementById("letter").value = "";
+	document.getElementById("output").textContent = "";
+ };
+
+// == -1 && usedLetters.indexOf(usedLetters[i], i+1)
+	  
+      
+
+	 
+	 //Makes blank input  after finishing the function
+	guess.value = ""; 
+	 
+ /*
+            } */
+
+/*
+//Display message if player wins
+function gameOver(remainingLetters) {
+    if(remainingLetters === 0) {
+        output.innerHTML = messages.win;
+    } else {
+        output.innerHTML = messages.loose;
+    }
+    guessInput.value = '';
+}
+
+//On Play again button, start all over game (empty fields and new random word)
+function playAgain() {
+    document.getElementById("letter").value = " ";
+	guessLetter();
+}; */
+
+
+
+
 
 
 
