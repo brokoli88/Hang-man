@@ -1,229 +1,3 @@
-/*
-// !!!!pokazuje da je letter == word[i]>>> true samo ukoliko je id-letter, ukoliko je id-view(iako je ista prenesena vrednost tj.slovo) pokazuje false ... U oba slucaja registruje slovo kao string...
-
-var letter = document.getElementById("letter").textContent;
-var words = ["pas", "drvo", "sunce", "zgrada"];
-//Pick a random word
-var word = words[Math.floor(Math.random() * words.length)];
-var addedWord = [];
-
-
-//Replace random choosen word with "_"
-for (var i = 0; i < word.length; i++) {
-    addedWord[i] = "_";
-    document.getElementById("demo").textContent = addedWord;
-}
-var remainingLetters = word.length;
-
-//Show letter that is typed in input field in square below
-function showLetter() {
-    var inputLetter = document.getElementById("letter").value;
-    document.getElementById("view").innerHTML = inputLetter;
-    //guess(letter);
-};
-    
-    //Show correct letter instead of _
-function guess(letter) {
-    Treba da uradi loop kroz rec i da pronadje slovo koje je isto kao ukucano
-    for (j = 0; 0 < word.length; j++) {
-        if (letter === word[j]) {
-        console.log("jeeej");
-        word[j] = letter;
-        } 
-     }
-};
-
-//On Play again button, start all over game (empty fields and new random word)
-function playAgain() {
-    document.getElementById("letter").value = null;
-    showLetter();
-}
-
-Novoooooooo
-
-/*  
-var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var words = ["pas", "drvo", "sunce", "zgrada"];
-var messages = {
-            win: 'You win!',
-            lose: 'Game over!',
-            guessed: ' Already guessed, please try again...',
-            validLetter: 'Please enter a letter from A-Z'
-        };
-var lives = 5;
-
-//Choosing random current word from words
-var word = words[Math.floor(Math.random() * words.length)];
-var addedWord = [];
-
-//Output messages 
-var output = document.getElementById("output");
-output.innerHTML = '';
-
-var guess = document.getElementById("letter").textContent;
-//guess.value = '';
-
-//Message to show how many lives do you have
-var message = document.getElementById("message");
-message.innerHTML = 'You have ' + lives + ' lives remaining';
-        
- 
-//Display letters of current word in div
-var letters = document.getElementById("letters");
-letters.innerHTML = addedWord;
-
-//Replace random word with "_"
-for (var i = 0; i < word.length; i++) {
-    addedWord[i] = "_";
-    letters.textContent = addedWord;
-};
-letters.textContent = addedWord.join(' ');
-
-//Check if guessInput is equal to letter in the word
- function guessLetter() {
-	// If blank input is submitted
-	if (guess === null) {
-		alert("Enter a letter please!");
-		output.innerHTML = messages.validLetter;
-	} else {
-		//Check if player typed letter or unvalid value(number etc)
-	for ( var i = 0; i < alphabet.length; i ++) {
-		if (alphabet[i] === guess) {
-			for (var j = 0; j < word.length; j++) {
-			if (word.charAt[j] === guess) {
-				word[j] = guess;
-				remainingLetters --;
-				}
-			}
-		}
-	}	
-	}
-	//Makes blank input  after finishing function
-	//guess.value = '';
-	//output.innerHTML = " ";
-};
-var remainingLetters = word.length;	
-
-
-//Display message if player wins
-function gameOver(win) {
-    if(win) {
-        output.innerHTML = messages.win;
-    } else {
-        output.innerHTML = messages.loose;
-    }
-    guessInput.value = '';
-}
-
-//On Play again button, start all over game (empty fields and new random word)
-function playAgain() {
-    document.getElementById("letter").value = null;
-	guessLetter();
-};
- 
-*/ 
-
-var words = ["pas", "drvo"];
-var messages = {
-            win: 'You win!',
-            lose: 'Game over!',
-            guessed: 'Please try another letter...',
-            validLetter: 'Please enter a letter from A-Z'
-        };
-var lives = 5;
-
-//Choosing random current word from words
-var word = words[Math.floor(Math.random() * words.length)];
-
-
-//Output messages 
-var output = document.getElementById("output");
-//Used letters message
-var usedLetters = document.getElementById("usedLetters");
-var usedLetters = [];
-
-var guess = document.getElementById("letter").value;
-
-//Message to show how many lives do you have
-var message = document.getElementById("message");
-message.innerHTML = 'You have ' + lives + ' lives remaining';
-        
- 
-//Display letters of current word in div
-var letters = document.getElementById("letters");
-letters.innerHTML = addedWord;
-
-//Replace random word with "_"
-var addedWord = [];
-for (var i = 0; i < word.length; i++) {
-    addedWord[i] = "_";
-    letters.textContent = addedWord;
-};
-letters.textContent = addedWord.join(' ');
- var remainingLetters = word.length;
-
-//Check if guess is equal to letter in the word
- function guessLetter() {
-	 guess = document.getElementById("letter").value;
-	 //output.innerHTML = "";
-	// If blank input is submitted
-	if (guess == "") {
-		alert("Enter a letter please!");
-		output.innerHTML = messages.validLetter;
-		} else {
-		//Loop all letters in word and find same letter
-			for ( var i = 0; i < word.length; i ++)  {
-				   if (word[i] === guess) {
-			console.log("Great, you guessed a letter!");
-					   //Loop added word to change _ to letter
-			for (var j = 0; j < addedWord.length; j++) {
-			if (addedWord[j] === guess) {
-				guess = addedWord[i];
-				addedWord.join(" ")
-				remainingLetters--;
-				
-				//If letter is not in the word
-				} else if (word[i] !== guess) {
-			output.innerHTML = messages.guessed;
-					usedLetters.innerHTML = guess;
-			console.log ("Try another letter");	
-					}			 		
-				}
-			}			
-		} 
-	}
-	  // Update the puzzle
-      letters.innerHTML = addedWord.join(" ");
-
-	 
-	 //Makes blank input  after finishing the function
-	guess.value = "";
-	 
- };
-
-//Display message if player wins
-function gameOver(remainingLetters) {
-    if(remainingLetters === 0) {
-        output.innerHTML = messages.win;
-    } else {
-        output.innerHTML = messages.loose;
-    }
-    guessInput.value = '';
-}
-
-//On Play again button, start all over game (empty fields and new random word)
-function playAgain() {
-    document.getElementById("letter").value = null;
-	guessLetter();
-};
-    
-
-
-    
-
-
-
-////novaaaaaaaaa
 var words = ["pas", "drvo"];
 var messages = {
             win: 'You win!',
@@ -235,9 +9,8 @@ var messages = {
 //Choosing random current word from words
 var word = words[Math.floor(Math.random() * words.length)];
 
-
 //Output messages 
-var output = document.getElementById("output").textContent;
+var output = document.getElementById("output");
 
 
 //Used letters message
@@ -247,15 +20,15 @@ usedLetters = [];
 var guess = document.getElementById("letter").value;
 
 //Message to show how many lives do you have
-var lives = 5;
+var lives = 10;
 var message = document.getElementById("message");
-message.innerHTML = 'You have ' + lives + ' lives remaining';
+message.innerHTML = 'You have ' + lives + ' lives remaining!';
         
- 
-//Display letters of current word in div
+//Display letters of current random word in div above
 var letters = document.getElementById("letters");
 letters.innerHTML = addedWord;
-//Remaining word
+
+//Remaining letters for showing messages.win
 var remainingLetters = word.length;
 
 //Replace random word with "_"
@@ -265,99 +38,77 @@ for (var i = 0; i < word.length; i++) {
     letters.textContent = addedWord;
 };
 letters.textContent = addedWord.join(' ');
-var remainingLetters = word.length;
+//==========var remainingLetters = word.length;
  
 //Check if guess is equal to letter in the word
  function guessLetter() {
 	 guess = document.getElementById("letter").value;
+	 
 	// If blank input is submitted
 	if (guess === "") {
-        //output.innerHTML += messages.validLetter;
-        console.log(output);
-        
-        
+		//!!!!Pokazuje u console.log  poruku ali je ne prikazuje na stranici
+        output = messages.validLetter;
+		console.log(messages.validLetter);
+		console.log(output);
 		} else {
+			
 		//Loop all letters in word and find same letter
             var match = false;
 			for ( var i = 0; i < word.length; i ++)  {
+				
                 //If guess is correct, change it from _ to guess
 				   if (word[i] == guess) {
                      addedWord[i] = guess;
+					   remainingLetters--;
                        match = true;
+					   gameOver(remainingLetters)
                        break;
-				}  	
-			}	
+				}  
+			}
+			
+			//If letter is not in the word
             if (!match){
-                    output.innerHTML += messages.guessed;
-                    document.getElementById("usedLetters").textContent += guess;
-			         lives--;
-                    //Function which prevent repeating wrong guesses letter in array
-                dontRepeat();
-	               function dontRepeat() {
-                       //Create array of duplicates
-                       var duplicates = [];
-                        
-                       // Find if there is a duplicate or not
-                        if (data.indexOf(element, index + 1) > -1) {
-                            // Find if the element is already in the result array or not
-      if (result.indexOf(element) === -1) {
-        result.push(element);
-
-                       
-                       usedLetters ;
-                        for ( i = 0; i < usedLetters.length; i++) {
-                            if (usedLe[i] > 1 || usedLetters.indexOf(usedLetters[i]) !== 1 ) {
-                duplicates.push(usedLetters[i]);  
-                                console.log(duplicates);
-                }
-        }
-                       console.log(duplicates);
-    }
-                
-                    
-                } 
-
+                output = messages.guessed;
+				console.log(output);
+				console.log(messages.guessed);
+				
+				//If letter does not exist in array Used letters,  push it
+				if (usedLetters.indexOf(guess) == -1) {
+					usedLetters.push(guess);
+					document.getElementById("usedLetters").textContent += guess;
+					
+				//Decrease lives
+				lives--;
+				if (lives > 0) {
+					message.innerHTML = 'You have ' + lives + ' lives remaining.';
+					//If is equal to 0
+				} else {
+					message.innerHTML = messages.lose;
+					output = messages.lose;
+					console.log(output);
+					console.log(messages.lose);
+					playAgain();
+					}
+				}	
+			}
 		} 
      letters.innerHTML = addedWord.join(" ");
-      //Makes blank input  after finishing the function
+	 
+     //Makes blank input  after finishing the function
 	document.getElementById("letter").value = "";
 	document.getElementById("output").textContent = "";
  };
 
-// == -1 && usedLetters.indexOf(usedLetters[i], i+1)
-	  
-      
-
-	 
-	 //Makes blank input  after finishing the function
-	guess.value = ""; 
-	 
- /*
-            } */
-
-/*
 //Display message if player wins
 function gameOver(remainingLetters) {
     if(remainingLetters === 0) {
+		console.log(messages.win)
         output.innerHTML = messages.win;
-    } else {
-        output.innerHTML = messages.loose;
-    }
-    guessInput.value = '';
-}
-
-//On Play again button, start all over game (empty fields and new random word)
+    } 
+};
+	 
+//On Play again button, start all over game (empty fields and new random word) -sredi!!!!!!!!!!
 function playAgain() {
-    document.getElementById("letter").value = " ";
+    document.getElementById("letter").value = null;
 	guessLetter();
-}; */
-
-
-
-
-
-
-
-        
-    
-    
+}; 
