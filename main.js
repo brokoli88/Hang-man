@@ -1,36 +1,23 @@
-var words = ["pas", "drvo"];
+//Ne radi usedLetters restaring i prikazivanje poruke
+
+
+var words = ["dog", "bird", "lemon", "rocket"];
+var guess = document.getElementById("letter").value;
+
+//Output messages win, lose, guessed, validLetter
 var messages = {
             win: 'You win!',
             lose: 'Game over!',
             guessed: 'Please try another letter...',
             validLetter: 'Please enter a letter from A-Z'
         };
+var output = document.getElementById("output");
 
 //Choosing random current word from words
 var word = words[Math.floor(Math.random() * words.length)];
-
-//Output messages 
-var output = document.getElementById("output");
-
-
-//Used letters message
-var usedLetters = document.getElementById("usedLetters").value;
-usedLetters = [];
-
-var guess = document.getElementById("letter").value;
-
-//Message to show how many lives do you have
-var lives = 10;
-var message = document.getElementById("message");
-message.innerHTML = 'You have ' + lives + ' lives remaining!';
-        
 //Display letters of current random word in div above
 var letters = document.getElementById("letters");
 letters.innerHTML = addedWord;
-
-//Remaining letters for showing messages.win
-var remainingLetters = word.length;
-
 //Replace random word with "_"
 var addedWord = [];
 for (var i = 0; i < word.length; i++) {
@@ -38,7 +25,18 @@ for (var i = 0; i < word.length; i++) {
     letters.textContent = addedWord;
 };
 letters.textContent = addedWord.join(' ');
-//==========var remainingLetters = word.length;
+
+//Wrong letters in paragraph
+var usedLetters = document.getElementById("usedLetters").value;
+usedLetters = [];
+
+//Message to show how many lives do you have
+var lives = 5;
+var message = document.getElementById("message");
+message.innerHTML = 'You have ' + lives + ' lives remaining!';
+   
+//Remaining letters for showing messages.win
+var remainingLetters = word.length;
  
 //Check if guess is equal to letter in the word
  function guessLetter() {
@@ -48,8 +46,8 @@ letters.textContent = addedWord.join(' ');
 	if (guess === "") {
 		//!!!!Pokazuje u console.log  poruku ali je ne prikazuje na stranici
         output = messages.validLetter;
-		console.log(messages.validLetter);
 		console.log(output);
+		console.log(messages.validLetter);
 		} else {
 			
 		//Loop all letters in word and find same letter
@@ -65,7 +63,6 @@ letters.textContent = addedWord.join(' ');
                        break;
 				}  
 			}
-			
 			//If letter is not in the word
             if (!match){
                 output = messages.guessed;
@@ -76,8 +73,10 @@ letters.textContent = addedWord.join(' ');
 				if (usedLetters.indexOf(guess) == -1) {
 					usedLetters.push(guess);
 					document.getElementById("usedLetters").textContent += guess;
+					//Put "," between usedletters 
+					document.getElementById("usedLetters").textContent = usedLetters.join(' , ');
 					
-				//Decrease lives
+				//Decrease lives on wrong guess
 				lives--;
 				if (lives > 0) {
 					message.innerHTML = 'You have ' + lives + ' lives remaining.';
@@ -106,9 +105,31 @@ function gameOver(remainingLetters) {
         output.innerHTML = messages.win;
     } 
 };
-	 
-//On Play again button, start all over game (empty fields and new random word) -sredi!!!!!!!!!!
+
+//On Play again button, start all over game (empty fields and new random word)
 function playAgain() {
     document.getElementById("letter").value = null;
 	guessLetter();
+	
+	//Lives again starts from 10 
+	lives = 10;
+	message.innerHTML = 'You have ' + lives + ' lives remaining!';
+	
+	//------Used letters restarting------------ne radi
+	//usedLetters = null;
+
+	
+	//Choosing random current word from words
+var word = words[Math.floor(Math.random() * words.length)];
+	//Display letters of current random word in div above
+var letters = document.getElementById("letters");
+letters.innerHTML = addedWord;
+	//Replace random word with "_"
+var addedWord = [];
+for (var i = 0; i < word.length; i++) {
+    addedWord[i] = "_";
+    letters.textContent = addedWord;
+};
+letters.textContent = addedWord.join(' ');
+	
 }; 
