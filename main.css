@@ -48,3 +48,15 @@ p {
 	padding-right: 10px; 
 	color: black;
 }
+#insertNewWord {
+    width: 30%;
+    height: 30px;
+    text-align: left;
+    margin-right: 15px;
+    font-size: 15px;
+}
+#submit {
+    width: 10%;
+    height: 30px;
+    font-size: 15px;
+}
