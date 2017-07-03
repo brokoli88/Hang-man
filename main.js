@@ -1,7 +1,4 @@
-//Ne radi usedLetters restaring i prikazivanje poruke
-
-
-var words = ["dog", "bird", "lemon", "rocket"];
+var words = ["pas", "drvo"];
 var guess = document.getElementById("letter").value;
 
 //Output messages win, lose, guessed, validLetter
@@ -13,18 +10,27 @@ var messages = {
         };
 var output = document.getElementById("output");
 
+
 //Choosing random current word from words
 var word = words[Math.floor(Math.random() * words.length)];
+
 //Display letters of current random word in div above
 var letters = document.getElementById("letters");
 letters.innerHTML = addedWord;
-//Replace random word with "_"
 var addedWord = [];
+
+function randomWord() {
+    word;
+    letters;
+    addedWord;
+//Replace random word with "_"
 for (var i = 0; i < word.length; i++) {
     addedWord[i] = "_";
     letters.textContent = addedWord;
 };
 letters.textContent = addedWord.join(' ');
+}
+
 
 //Wrong letters in paragraph
 var usedLetters = document.getElementById("usedLetters").value;
@@ -38,14 +44,17 @@ message.innerHTML = 'You have ' + lives + ' lives remaining!';
 //Remaining letters for showing messages.win
 var remainingLetters = word.length;
  
+randomWord();
+
 //Check if guess is equal to letter in the word
  function guessLetter() {
 	 guess = document.getElementById("letter").value;
-	 
+	 document.getElementById("output").textContent = "";
+     
 	// If blank input is submitted
 	if (guess === "") {
 		//!!!!Pokazuje u console.log  poruku ali je ne prikazuje na stranici
-        output = messages.validLetter;
+        output.innerHTML = messages.validLetter;
 		console.log(output);
 		console.log(messages.validLetter);
 		} else {
@@ -65,9 +74,7 @@ var remainingLetters = word.length;
 			}
 			//If letter is not in the word
             if (!match){
-                output = messages.guessed;
-				console.log(output);
-				console.log(messages.guessed);
+                output.innerHTML = messages.guessed;
 				
 				//If letter does not exist in array Used letters,  push it
 				if (usedLetters.indexOf(guess) == -1) {
@@ -82,10 +89,7 @@ var remainingLetters = word.length;
 					message.innerHTML = 'You have ' + lives + ' lives remaining.';
 					//If is equal to 0
 				} else {
-					message.innerHTML = messages.lose;
-					output = messages.lose;
-					console.log(output);
-					console.log(messages.lose);
+					output.innerHTML = messages.lose;
 					playAgain();
 					}
 				}	
@@ -95,7 +99,7 @@ var remainingLetters = word.length;
 	 
      //Makes blank input  after finishing the function
 	document.getElementById("letter").value = "";
-	document.getElementById("output").textContent = "";
+	
  };
 
 //Display message if player wins
@@ -108,28 +112,20 @@ function gameOver(remainingLetters) {
 
 //On Play again button, start all over game (empty fields and new random word)
 function playAgain() {
+    //------Used letters restarting------------ne radi
+	//usedLetters.value = null;
+
     document.getElementById("letter").value = null;
+    randomWord();
 	guessLetter();
-	
-	//Lives again starts from 10 
-	lives = 10;
+	document.getElementById("output").textContent = "";
+	//Lives again starts from start
+	lives = 5;
 	message.innerHTML = 'You have ' + lives + ' lives remaining!';
 	
-	//------Used letters restarting------------ne radi
-	//usedLetters = null;
-
 	
-	//Choosing random current word from words
-var word = words[Math.floor(Math.random() * words.length)];
-	//Display letters of current random word in div above
-var letters = document.getElementById("letters");
-letters.innerHTML = addedWord;
-	//Replace random word with "_"
-var addedWord = [];
-for (var i = 0; i < word.length; i++) {
-    addedWord[i] = "_";
-    letters.textContent = addedWord;
-};
+	
+	
 letters.textContent = addedWord.join(' ');
 	
 }; 
