@@ -8,13 +8,17 @@
     </head>
     <body id="container">
         <div>
-            <div id="letters">
-            </div>
+            <div id="letters"></div>
+            <div id="container2">
+            <h3>Insert word:</h3>
+            <input id="insertNewWord" type="text" name="letter" placeholder="Insert a word">
+            <button id="submit" name="submit" type="submit" onclick="insertWord()">Submit</button>
+        </div>
                 <h3>Type a letter:</h3>
-            <input id="letter" type="text" maxlength="1" minlength="1" name="letter" placeholder="Guess a letter"/>
+            <input id="letter" type="text" maxlength="1" minlength="1" name="letter" placeholder="Guess a letter">
             <button id="guess" name="guess" type="submit" onclick="guessLetter()">Guess</button>
             <button id="playAgain" type="submit" onclick="playAgain()">Play again</button>
-            <div id="message"></div>
+             <div id="message"></div>
 			<p>You used: <h7 id="usedLetters"></h7> </p>
 			<div id="output"></div>
         </div>
