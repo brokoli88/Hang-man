@@ -1,4 +1,4 @@
-var words = ["pas", "drvo"];
+var words = ["pas", "drvo", "vrati"];
 var guess = document.getElementById("letter").value;
 
 //Output messages win, lose, guessed, validLetter
@@ -10,15 +10,14 @@ var messages = {
         };
 var output = document.getElementById("output");
 
-
 //Choosing random current word from words
 var word = words[Math.floor(Math.random() * words.length)];
 
 //Display letters of current random word in div above
 var letters = document.getElementById("letters");
-letters.innerHTML = addedWord;
+//letters.innerHTML = addedWord;
 var addedWord = [];
-
+//Function for showing random word in _
 function randomWord() {
     word;
     letters;
@@ -29,8 +28,7 @@ for (var i = 0; i < word.length; i++) {
     letters.textContent = addedWord;
 };
 letters.textContent = addedWord.join(' ');
-}
-
+};
 
 //Wrong letters in paragraph
 var usedLetters = document.getElementById("usedLetters").value;
@@ -40,8 +38,11 @@ usedLetters = [];
 var lives = 5;
 var message = document.getElementById("message");
 message.innerHTML = 'You have ' + lives + ' lives remaining!';
-   
-//Remaining letters for showing messages.win
+
+//Text from insert word - input 
+var newWord = document.getElementById("insertNewWord");
+
+//Remaining letters
 var remainingLetters = word.length;
  
 randomWord();
@@ -107,25 +108,44 @@ function gameOver(remainingLetters) {
     if(remainingLetters === 0) {
 		console.log(messages.win)
         output.innerHTML = messages.win;
-    } 
+        /*usedWordsArray = [];
+        usedWordsArray.push(word);
+        console.log(usedWordsArray);
+        console.log(word)*/
+        dontRepeatWords();
+    }
+};
+//Function that puts guessed word in new array
+function dontRepeatWords() {
+    usedWordsArray = [];
+        usedWordsArray.push(word);
+    words.length --;
+        console.log(usedWordsArray);
+        console.log(word);
+        console.log(words)
 };
 
 //On Play again button, start all over game (empty fields and new random word)
 function playAgain() {
     //------Used letters restarting------------ne radi
 	//usedLetters.value = null;
-
     document.getElementById("letter").value = null;
+     
+    //Choosing random current word from words
+    //word = words[Math.floor(Math.random() * words.length)];
+    
     randomWord();
+    dontRepeatWords();
 	guessLetter();
 	document.getElementById("output").textContent = "";
 	//Lives again starts from start
 	lives = 5;
 	message.innerHTML = 'You have ' + lives + ' lives remaining!';
-	
-	
-	
-	
-letters.textContent = addedWord.join(' ');
-	
 }; 
+
+//Function insertWord() that insert typed word in array
+function insertWord() {
+    words.push(newWord.value);
+    console.log(words);
+};
+
