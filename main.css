@@ -11,15 +11,21 @@
     font-size: 30px;
 }
 #letter {
-    width: 200px;
+    width: 15%;
     height: 30px;
+    font-size: 15px;
+    
 }
 button {
     background-color: antiquewhite;
+    width: 10%;
+    height: 30px;
+    font-size: 13px;
+    margin-right: 20px;
 }
 #message {
     width: 80%;
-    height: 60px;
+    height: 80px;
     background-color: cadetblue;
     margin-top: 30px;
     color: aliceblue;
@@ -28,35 +34,27 @@ button {
     padding-top: 20px;
     
 }
-p {
-	font-size: 20px;
-	width: 80%;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	padding-left: 10px;
-}
 #output {
-    font-size: 20px;
-	width: 100%;
-	height: auto;
-	margin-top: 30px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	padding-left: 10px;
-	padding-right: 10px; 
-	color: black;
+    font-size: 30px;
+    background-color: darkgray;
+    height: 50px;
+    width: 80%;
+    color: aliceblue;;
+    text-align: center;
+    padding-left: 10px;
+    padding-top: 10px;
 }
 #insertNewWord {
-    width: 30%;
+    width: 20%;
     height: 30px;
     text-align: left;
     margin-right: 15px;
     font-size: 15px;
 }
-#submit {
-    width: 10%;
+#choose-word {
+    width: 20%;
     height: 30px;
+    text-align: left;
+    margin-right: 15px;
     font-size: 15px;
 }
