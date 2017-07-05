@@ -1,4 +1,4 @@
-var words = ["jaja", "pas"];
+var words = ["dog", "house", " secret", "job", "monkey"];
 var guess = document.getElementById("letter").value;
 
 //Output messages win, lose, guessed, validLetter
@@ -9,7 +9,6 @@ var messages = {
             validLetter: 'Please enter a letter from A-Z'
         };
 var output = document.getElementById("output");
-
 
 //Choosing random current word from words
 var word = words[Math.floor(Math.random() * words.length)];
@@ -22,9 +21,9 @@ var addedWord = [];
 
 //Function for showing random word in _
 function randomWord() {
-    word;
-    letters;
-    addedWord;
+    //Reset letters 
+    addedWord = [];
+
 //Replace random word with "_"
 for (var i = 0; i < word.length; i++) {
     addedWord[i] = "_";
@@ -34,7 +33,7 @@ letters.textContent = addedWord.join(' ');
 };
 
 //Wrong letters in paragraph
-var usedLetters = document.getElementById("usedLetters").value;
+var usedLettersP = document.getElementById("usedLetters");
 usedLetters = [];
 
 //Message to show how many lives do you have
@@ -44,6 +43,9 @@ message.innerHTML = 'You have ' + lives + ' lives remaining!';
 
 //Text from insert word - input 
 var newWord = document.getElementById("insertNewWord");
+
+//When choosing word
+var chooseWord = document.getElementById("choose-word");
 
 //Remaining letters
 var remainingLetters = word.length;
@@ -57,7 +59,6 @@ randomWord();
      
 	// If blank input is submitted
 	if (guess === "") {
-		//!!!!Pokazuje u console.log  poruku ali je ne prikazuje na stranici
         output.innerHTML = messages.validLetter;
 		} else {
 			
@@ -104,7 +105,6 @@ randomWord();
 	 
      //Makes blank input  after finishing the function
 	document.getElementById("letter").value = "";
-	
  };
 
 //Display message if player wins
@@ -112,9 +112,9 @@ function gameOver(remainingLetters) {
     if(remainingLetters === 0) {
         output.innerHTML = messages.win;
         dontRepeatWords();
-        
     }
 };
+
 //Function that puts guessed word in new array
 function dontRepeatWords() {
         usedWordsArray = [];
@@ -126,21 +126,19 @@ function dontRepeatWords() {
             console.log("Rec se nece vise pogadjati.");
  } else {
      console.log("Rec ce se dalje pogadjati.");
- }
-        console.log(word);
-        console.log(words);
-        console.log(usedWordsArray);
+    }
 };
 
 //On Play again button, start all over game (empty fields and new random word)
 function playAgain() {
+    
     //------Used letters restarting------------ne radi
-	//usedLetters.value = null;
+	usedLettersP.innerHTML = [];
+    console.log(usedLetters);
     document.getElementById("letter").value = null;
      
     //Choosing random current word from words
-word = words[Math.floor(Math.random() * words.length)];
-    
+    word = words[Math.floor(Math.random() * words.length)];
     randomWord();
     dontRepeatWords();
 	guessLetter();
@@ -155,6 +153,46 @@ function insertWord() {
     words.push(newWord.value);
     console.log(words);
 }
+
+//Function witch find word that containes that letters
+function findWord() {
+    document.getElementById("chooseWord").innerHTML = "";
+    
+   //Loop thru words array
+        for ( var i = 0; i < words.length; i++) {
+            //If letters are part of word in words in array
+            if (words[i].indexOf(chooseWord.value) >= 0) {
+                //Create new option element
+                var newOption = document.createElement("option");
+                //Set new value (for showing the word as option)
+                newOption.value = words[i];
+                //Add the newOption to the datalist
+                document.getElementById("chooseWord").appendChild(newOption);
+                    } 
+                }
+};
+
+//When you click on word, you can guess it in output
+function playChosenWord() {
+    
+    word = chooseWord.value;
+    randomWord(); 
+    //Clear search input text
+    chooseWord.value = " ";
+    
+    guessLetter();
+};
+                    
+    
+
+
+
+
+     
+     
+
+    
+
 
     
 
