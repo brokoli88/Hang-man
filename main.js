@@ -184,8 +184,179 @@ function playChosenWord() {
 };
                     
     
+////////////////////////////////////////////////
 
 
+//Kad pogodis dve reci, nece da radi playAgain; broj slova nekad ne radi
+
+var words = ["asas", "house", "sun", "monkey"];
+//["dogggy", "house", " secret", "job", "monkey"];
+var word = words[Math.floor(Math.random() * words.length)];
+var newWord = document.getElementById("newWordInput");
+var chooseWord = document.getElementById("chooseWordInput");
+
+var guessingWord = document.getElementById("guessWord");
+
+var dashedWord = [];
+var letter = document.getElementById("guessLetter").value;
+var remainingLetters = word.length;
+
+var wrongLetters = document.getElementById("wrongLetters");
+    wrongLettersArray = [];
+
+var lives = 5;
+var messageLives = document.getElementById("livesLeft");
+    messageLives.innerHTML = 'You have ' + lives + ' lives remaining!';
+
+//Messages in gameplay
+var outputMessages = document.getElementById("messages");
+var messages = {
+    win: 'You win!',
+    lose: 'Game over!',
+    wrongLetter: 'Please try another letter...',
+    unvalidValue: 'Please enter a letter from A-Z'
+};
+
+//Insert new word for guessing
+function insertNewWord() {
+    words.push(newWord.value);
+    newWord.value = "";
+};
+
+//Searching word
+function findWord() {
+    document.getElementById("chooseWordList").innerHTML = "";
+   //Loop thru words array
+    for ( var i = 0; i < words.length; i++) {
+        //If letters are part of word in words in array
+        if (words[i].indexOf(chooseWord.value) >= 0) {
+            //Create new option element
+            var newOption = document.createElement("option");
+            //Set new value (for showing the word as option)
+            newOption.value = words[i];
+            //Add the newOption to the datalist
+            document.getElementById("chooseWordList").appendChild(newOption);
+        } 
+    }
+};
+
+//Play choosen word
+function playChoosenWord() {
+    word = chooseWord.value;
+    wordInDashes(); 
+    //Clear search input text
+    chooseWord.value = " ";
+}; 
+
+//wordInDashes()
+//Show word in _
+function wordInDashes() {
+    //Reset wrong letters 
+    dashedWord = [];
+    //Replace random word with "_"
+    for (var i = 0; i < word.length; i++) {
+        dashedWord[i] = "_";
+        guessingWord.textContent = dashedWord;
+    }
+    guessingWord.textContent = dashedWord.join(' ');
+    guessLetter();
+};
+
+//On Play again button, play new word
+function guessLetter() {
+    letter = document.getElementById("guessLetter").value;
+    document.getElementById("messages").textContent = "";
+    // If blank input is submitted
+    if (letter === "") {
+        outputMessages.innerHTML = messages.unvalidValue;
+    } else {   
+    //Loop all letters in word and find matching letter
+        var match = false;
+        for ( var i = 0; i < word.length; i ++) {
+            //If guess is correct, change it from _ to letter
+            if (word[i] == letter) {
+                dashedWord[i] = letter;
+                remainingLetters--;
+                match = true;
+                if(remainingLetters === 0) {
+                    outputMessages.innerHTML = messages.win;
+
+                    numOfDuplicates()
+
+
+
+                    
+
+                    //Remove guessed word from words
+                    guessedWordsArray = [];
+                    guessedWordsArray.push(word);
+                    if (guessedWordsArray.indexOf(word) > -1) {
+                        var deleteGuessedWord = words.indexOf(word);
+                        words.splice(deleteGuessedWord, 1);
+                    }
+                    guessLetter();
+                    playAgain();
+                }
+            }  
+        }
+        //If letter is not in the word
+        if (!match) {
+            outputMessages.innerHTML = messages.wrongLetter;
+            //If letter does not exist in array Used letters,  push it
+            if (wrongLettersArray.indexOf(letter) == -1) {
+                wrongLettersArray.push(letter);
+                wrongLetters.textContent += letter;
+                //Put "," between wrong letters 
+                wrongLetters.textContent = wrongLettersArray.join(' , ');
+                //Decrease lives on wrong guess
+                lives--;
+                if (lives >= 0) {
+                    messageLives.innerHTML = 'You have ' + lives + ' lives remaining.';
+                } 
+                if (lives <= 0) {
+                    outputMessages.innerHTML = messages.lose;
+                } 
+            }   
+        }
+    } 
+    
+    guessingWord.innerHTML = dashedWord.join(" ");
+    //Makes blank input for leter after submition
+    document.getElementById("guessLetter").value = "";                  
+};
+
+//On Play again button, start all over game 
+function playAgain() {
+    wrongLetters.innerHTML = [];
+    //document.getElementById("howManyLetters").textContent = "";
+    document.getElementById("guessWord").value = "";
+    document.getElementById("guessLetter").value = null;
+    document.getElementById("messages").textContent = null;
+    lives = 5;
+    messageLives.innerHTML = 'You have ' + lives + ' lives remaining!';
+    word = words[Math.floor(Math.random() * words.length)];
+    wordInDashes();
+    guessLetter();
+}; 
+
+//Show how many each letter apears in the word
+function numOfDuplicates() {
+    
+    for (var i = 0; i < word.length; i++) {
+        word;
+        var searchFor = word[i];
+        var count = 0;
+        var position = 0;
+        while (position != -1) {
+            position = word.indexOf(word[i], position)
+            if ( position != -1 ) {
+                count++;
+                position++;
+            }
+        }
+    document.getElementById("howManyLetters").innerHTML += word[i] + " apears " + count + " times ";
+    }
+};
 
 
      
