@@ -3,58 +3,81 @@
     width: 100%;
     height: 100%;
 }
-#letters {
+
+#guessWord {
     background-color: bisque;
     width: 100%;
     height: 60px;
     text-align: center;
     font-size: 30px;
+    border-radius: 3px;
 }
-#letter {
+#newWordInput {
+    width: 20%;
+    height: 30px;
+    text-align: left;
+    margin-right: 15px;
+    
+    font-size: 15px;
+}
+#guessLetter {
+    margin-top:20px;
     width: 15%;
     height: 30px;
     font-size: 15px;
     
 }
+#container2 {
+    margin-top: 20px;
+}
+input {
+    border-radius: 3px;
+}
 button {
     background-color: antiquewhite;
     width: 10%;
     height: 30px;
-    font-size: 13px;
+    font-size: 60%;
     margin-right: 20px;
+    border-radius: 5px;
 }
-#message {
+#livesLeft {
     width: 80%;
-    height: 80px;
+    height: 60px;
     background-color: cadetblue;
-    margin-top: 30px;
+    margin-top: 20px;
     color: aliceblue;
     text-align: center;
     font-size: 30px;
     padding-top: 20px;
+    border-radius: 3px;
     
 }
-#output {
+#messages {
     font-size: 30px;
     background-color: darkgray;
     height: 50px;
     width: 80%;
-    color: aliceblue;;
+    color: aliceblue;
+    border-radius: 3px;
     text-align: center;
     padding-left: 10px;
     padding-top: 10px;
+
 }
-#insertNewWord {
+
+#chooseWordInput {
     width: 20%;
     height: 30px;
     text-align: left;
     margin-right: 15px;
     font-size: 15px;
 }
-#choose-word {
-    width: 20%;
-    height: 30px;
-    text-align: left;
-    margin-right: 15px;
-    font-size: 15px;
+#howManyLetters {
+    float:  right;
+    padding:  20px;
+    margin-top:  0px;
+    width:  20%;
+    height: 76px;
+    font-size: 20px;
 }
