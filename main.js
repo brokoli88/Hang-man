@@ -185,12 +185,9 @@ function playChosenWord() {
                     
     
 ////////////////////////////////////////////////
-
-
 //Kad pogodis dve reci, nece da radi playAgain; broj slova nekad ne radi
 
-var words = ["asas", "house", "sun", "monkey"];
-//["dogggy", "house", " secret", "job", "monkey"];
+var words = ["asas", "house", "sun", "monkey", "dogggy", " secret", "job"];
 var word = words[Math.floor(Math.random() * words.length)];
 var newWord = document.getElementById("newWordInput");
 var chooseWord = document.getElementById("chooseWordInput");
@@ -278,15 +275,11 @@ function guessLetter() {
                 dashedWord[i] = letter;
                 remainingLetters--;
                 match = true;
-                if(remainingLetters === 0) {
+                if(remainingLetters === -1) {
                     outputMessages.innerHTML = messages.win;
-
-                    numOfDuplicates()
-
-
-
                     
-
+                    numOfDuplicates();
+                    
                     //Remove guessed word from words
                     guessedWordsArray = [];
                     guessedWordsArray.push(word);
@@ -339,24 +332,76 @@ function playAgain() {
     guessLetter();
 }; 
 
-//Show how many each letter apears in the word
-function numOfDuplicates() {
-    
+function numOfDuplicates() {    
+    var lettersArray = [];
+    //Push unique letters in array
     for (var i = 0; i < word.length; i++) {
-        word;
-        var searchFor = word[i];
-        var count = 0;
-        var position = 0;
-        while (position != -1) {
-            position = word.indexOf(word[i], position)
-            if ( position != -1 ) {
-                count++;
-                position++;
-            }
+        if (lettersArray.indexOf(word[i]) == -1) {
+            lettersArray.push(word[i]);
         }
-    document.getElementById("howManyLetters").innerHTML += word[i] + " apears " + count + " times ";
     }
+    //Loop the array and word to find matching letter
+    for (var j = 0; j < lettersArray.length; j++) {
+        counter = 0;
+        for (var k = 0; k < word.length; k++) {
+            if (lettersArray[j] == word[k]) {
+                counter++;
+            }   
+        }
+        document.getElementById("howManyLetters").innerHTML += lettersArray[j] + " = " + counter + " x " + "<br/>";
+    }  
 };
+    
+    
+   /* word = dashedWord.join('');
+    
+    var newArr = {};
+    for (var i = 0; i < word.length; i++) {
+        if (newArr[word[i]]) {
+            newArr[word[i]].push(word[i]);
+        } else {
+            newArr[word[i]] = [];
+            newArr[word[i]].push(word[i]);
+        }
+        
+    }
+    for (var j = 0; j < newArr.length; j ++) {
+
+        }
+    
+    //document.getElementById("howManyLetters").innerHTML += newArr[0]
+    console.log(newArr)
+    
+    //console.log( word.replace(/[^searchFor]/g, "").length);
+    //console.log(word.replaceAll(/[^searchFor]/g, "").length ());
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
      
