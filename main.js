@@ -178,8 +178,46 @@ function numOfLetters() {
     //document.getElementById("howManyLetters").innerHTML += "___"
     }  
     document.getElementById("howManyLetters").innerHTML += "____" + "<br/>"; 
+    countPoints();
 };
     
+   
+function countPoints () {
+    var vowels = ["a","e","i","o","u"];
+    var pointsVowels = 0;
+    var pointsConsonants = 0;
+    var pointsWrongGuesses = 0;
+    var totalPoints = 0;
+    var wrongGuesses =  wrongLetters.textContent;
+    //Reset points
+    document.getElementById("points").innerHTML = "";
+
+    //Loop thru guessed letters
+    for (var i = 0; i < word.length; i++) {
+        for ( j = 0; j < vowels.length; j++) {
+            if (word[i] == vowels[j]) {
+                pointsVowels += 0.5;
+                
+            } 
+        }
+
+    //Push wrong letters in new array to counte them    
+    for (var k = 0; k < wrongGuesses.length; k++) {
+        pointsWrongGuesses += -0.25;
+    }
+
+    //Count points for wrong guesses
+    //pointsWrongGuesses = wrongGuesses.length * (-0.25); 
+    
+    }
+    console.log(pointsVowels)
+    console.log(pointsWrongGuesses)
+    totalPoints = pointsVowels + pointsWrongGuesses;
+    document.getElementById("points").innerHTML += totalPoints;
+    document.getElementById("points").innerHTML += "; ";
+};
+
+
    
 
 //On Play again button, start all over game 
