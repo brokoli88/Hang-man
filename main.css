@@ -84,9 +84,6 @@ button {
     height: 76px;
     font-size: 20px;
 }
-#info {
-    width: 100%;
-}
 #points {
     background-color: yellowgreen;
     margin-top: 20px;
@@ -95,14 +92,4 @@ button {
     height: 60px;
     padding-top: 10px;
     padding-left: 10px;
-}
-#timer {
-    background-color: yellowgreen;
-    margin-top: 20px;
-    border-radius: 3px;
-    width: 30%;
-    height: 60px;
-    padding-top: 10px;
-    padding-left: 10px;
-    float:  right: ;
 }
