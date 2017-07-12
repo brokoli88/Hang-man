@@ -84,12 +84,13 @@ button {
     height: 76px;
     font-size: 20px;
 }
-#points {
+#info {
     background-color: yellowgreen;
     margin-top: 20px;
     border-radius: 3px;
     width: 30%;
-    height: 60px;
+    height: 90px;
     padding-top: 10px;
     padding-left: 10px;
+
 }
