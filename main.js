@@ -1,13 +1,14 @@
+//Ne resetuje bodove na pogadjanje sledece reci(continue game) ali sabira ispravno, samo sto ne krece od nule
+
 var words = ["asas", "house", "sun", "monkey", "dogggy", "secret", "job"];
 var word = words[Math.floor(Math.random() * words.length)];
 var newWord = document.getElementById("newWordInput");
 var chooseWord = document.getElementById("chooseWordInput");
-
+ 
 var guessingWord = document.getElementById("guessWord");
 
 var dashedWord = [];
 var letter = document.getElementById("guessLetter").value;
-//var remainingLetters = word.length;
 
 var wrongLetters = document.getElementById("wrongLetters");
     wrongLettersArray = [];
@@ -24,6 +25,16 @@ var messages = {
     wrongLetter: 'Please try another letter...',
     unvalidValue: 'Please enter a letter from A-Z'
 };
+
+//Object about guessed word information
+var shoWordInfo = document.getElementById("guessedWordInfo");
+    wordInfo = {
+        etters: "",
+        word: "",
+        points: "",
+        time: "",
+};
+
 
 //Insert new word for guessing
 function insertNewWord() {
@@ -55,7 +66,7 @@ function playChoosenWord() {
     wordInDashes(); 
     //Clear search input text
     chooseWord.value = " ";
-    start ()
+    start ();
     wordInDashes();
 }; 
 
@@ -76,11 +87,10 @@ function wordInDashes() {
 function guessLetter() {
     //Var for counting points
     var vowels = ["a","e","i","o","u"];
-    var pointsVowels =0;
-    var pointsConsonants =0;
-    var pointsWrongGuesses =0;
-    var pointsTotal = pointsConsonants + pointsVowels + pointsWrongGuesses; 
-
+    var pointsVowels = 0;
+    var pointsConsonants = 0;
+    var pointsWrongGuesses = 0;
+    var pointsTotal = 0;
     //If eneter is pressed, letter is submitted (add event listener)
     document.getElementById("guessLetter").addEventListener("keypress", function (e) {
         if(e.keyCode == 13) {
@@ -116,6 +126,9 @@ function guessLetter() {
                         outputMessages.innerHTML = messages.win;
                         stop();
                         numOfLetters()
+                        //Reset points
+                        document.getElementById("points").innerHTML = "";
+
                         //Remove guessed word from words
                         guessedWordsArray = [];
                         guessedWordsArray.push(word);
@@ -141,16 +154,18 @@ function guessLetter() {
                         wrongLetters.textContent = wrongLettersArray.join(',');
                         //Decrease lives on wrong guess
                         lives--;
-                        if (lives) {
+                        if (lives >= 0) {
                             messageLives.innerHTML = 'You have ' + lives + ' lives remaining.';
                         } 
-                        if (lives == 0) {
+                        if (lives <= 0) {
                             outputMessages.innerHTML = messages.lose;
+                            document.getElementById("guessLetter").disabled = true;
                             stop();
                         } 
                     }  
                 } 
-                document.getElementById("points").innerHTML = pointsConsonants + pointsVowels + pointsWrongGuesses;    
+            pointsTotal = pointsConsonants + pointsVowels + pointsWrongGuesses;
+            document.getElementById("points").innerHTML = pointsTotal ;
             } 
         } 
     guessingWord.innerHTML = dashedWord.join(" ");
@@ -161,14 +176,21 @@ function guessLetter() {
 
 //Continue play after guessing the word
 function continueGame() {
+    //--------------Reset points Ne resetuje
+    document.getElementById("points").innerHTML = ""//-------Ne resetuje
+    document.getElementById("guessLetter").disabled = false;
+    //Reset time
+    document.getElementById("seconds").innerHTML = "";
+    //After choosen word, player must play random word
     word =  words[Math.floor(Math.random() * words.length)];
     remainingLetters = word.length; 
     //Reset number of wrong letters
     wrongLetters.innerHTML = [];
     wordInDashes();
     guessLetter();  
+    start();
 } 
-   
+//Calculate how much each letter appears in guessed word
 function numOfLetters() {
     //Show number of each letter in word
     var lettersArray = [];
@@ -186,20 +208,33 @@ function numOfLetters() {
                 counter++;
             }   
         }
-        document.getElementById("howManyLetters").innerHTML += lettersArray[j] + " = " + counter + "x " + "<br/>";
-    }  
-    document.getElementById("howManyLetters").innerHTML += "____" + "<br/>"; 
+    //For showing total points and time of guessed word 
+    wordInfo.word = "Word: " + word + "<br/>";   
+    wordInfo.letters =  lettersArray[j] + " = " + counter + "x " + "<br/>";
+    shoWordInfo.innerHTML += wordInfo.letters;
+    }
+    var showPoints = document.getElementById("points").textContent
+wordInfo.time =  "Time: " + document.getElementById("seconds").textContent + "<br/>";
+wordInfo.points = "Points: " + showPoints + "<br/>";
+shoWordInfo.innerHTML += wordInfo.word;
+shoWordInfo.innerHTML += wordInfo.time;
+shoWordInfo.innerHTML += wordInfo.points;  
 };
     
 //On Play again button, start all over game 
 function playAgain() {
-    document.getElementById("howManyLetters").innerHTML = " ";
+    //Reset values
+    document.getElementById("guessLetter").disabled = false;
+    document.getElementById("seconds").innerHTML = "";
+    document.getElementById("points").innerHTML = "";
+    document.getElementById("guessedWordInfo").innerHTML = " ";
     wrongLetters.innerHTML = [];
     document.getElementById("guessLetter").value = null;
     document.getElementById("messages").textContent = null;
     lives = 5;
     messageLives.innerHTML = 'You have ' + lives + ' lives remaining!';
     word = words[Math.floor(Math.random() * words.length)];
+    start();
     wordInDashes();
     guessLetter();
 }; 
@@ -216,31 +251,4 @@ function start () {
 }
 var stop = function() {
   clearInterval(seconds);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
