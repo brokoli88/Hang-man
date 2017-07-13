@@ -1,4 +1,4 @@
-//Ne resetuje bodove na pogadjanje sledece reci(continue game) ali sabira ispravno, samo sto ne krece od nule
+//Resetuje polje na pogadjanje sledece reci(continue, playAgain) ali ne restuje vrednost na 0
 
 var words = ["asas", "house", "sun", "monkey", "dogggy", "secret", "job"];
 var word = words[Math.floor(Math.random() * words.length)];
@@ -29,12 +29,11 @@ var messages = {
 //Object about guessed word information
 var shoWordInfo = document.getElementById("guessedWordInfo");
     wordInfo = {
-        etters: "",
+        letters: "",
         word: "",
         points: "",
         time: "",
 };
-
 
 //Insert new word for guessing
 function insertNewWord() {
@@ -126,9 +125,7 @@ function guessLetter() {
                         outputMessages.innerHTML = messages.win;
                         stop();
                         numOfLetters()
-                        //Reset points
-                        document.getElementById("points").innerHTML = "";
-
+                
                         //Remove guessed word from words
                         guessedWordsArray = [];
                         guessedWordsArray.push(word);
@@ -165,7 +162,6 @@ function guessLetter() {
                     }  
                 } 
             pointsTotal = pointsConsonants + pointsVowels + pointsWrongGuesses;
-            document.getElementById("points").innerHTML = pointsTotal ;
             } 
         } 
     guessingWord.innerHTML = dashedWord.join(" ");
@@ -176,8 +172,7 @@ function guessLetter() {
 
 //Continue play after guessing the word
 function continueGame() {
-    //--------------Reset points Ne resetuje
-    document.getElementById("points").innerHTML = ""//-------Ne resetuje
+    document.getElementById("points").innerHTML = "";//------Ne resetuje vrednost na 0
     document.getElementById("guessLetter").disabled = false;
     //Reset time
     document.getElementById("seconds").innerHTML = "";
@@ -189,7 +184,8 @@ function continueGame() {
     wordInDashes();
     guessLetter();  
     start();
-} 
+}; 
+
 //Calculate how much each letter appears in guessed word
 function numOfLetters() {
     //Show number of each letter in word
@@ -226,7 +222,7 @@ function playAgain() {
     //Reset values
     document.getElementById("guessLetter").disabled = false;
     document.getElementById("seconds").innerHTML = "";
-    document.getElementById("points").innerHTML = "";
+    document.getElementById("points").innerHTML = "";//-------Ne resetuje vrednost na 0
     document.getElementById("guessedWordInfo").innerHTML = " ";
     wrongLetters.innerHTML = [];
     document.getElementById("guessLetter").value = null;
@@ -239,7 +235,7 @@ function playAgain() {
     guessLetter();
 }; 
 
-//Set timer to start mesuring time in playing a word
+//Set timer to start mesuring secondes from 0
 function countTime() {
   document.getElementById("seconds").innerHTML = ++ value;
 }
