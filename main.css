@@ -76,7 +76,7 @@ button {
     margin-right: 15px;
     font-size: 15px;
 }
-#howManyLetters {
+#guessedWordInfo {
     float:  right;
     padding:  20px;
     margin-top:  0px;
