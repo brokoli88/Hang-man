@@ -1,7 +1,9 @@
 //Resetuje polje na pogadjanje sledece reci(continue, playAgain) ali ne restuje vrednost na 0
 
-var words = ["asas", "house", "sun", "monkey", "dogggy", "secret", "job"];
-var word = words[Math.floor(Math.random() * words.length)];
+var words = [];
+var word = words[Math.floor(Math.random() * localStorage.getItem("words").length)];
+
+
 var newWord = document.getElementById("newWordInput");
 var chooseWord = document.getElementById("chooseWordInput");
  
@@ -37,7 +39,16 @@ var shoWordInfo = document.getElementById("guessedWordInfo");
 
 //Insert new word for guessing
 function insertNewWord() {
-    words.push(newWord.value);
+	//Set words to be in local storage
+	words = localStorage.getItem("words");
+	//Set words to be javascripts object
+	words = JSON.parse(words);
+	//Push new word in array of words
+	words.push(newWord.value)
+	//Make array into a string so taht player can guess a word(string)
+ 	localStorage.setItem('words',JSON.stringify(words));
+	
+	console.log(localStorage.getItem("words"))
     newWord.value = "";
     findWord();
 };
@@ -58,6 +69,7 @@ function findWord() {
         } 
     }
 };
+
 
 //Play choosen word
 function playChoosenWord() {
