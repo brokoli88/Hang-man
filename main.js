@@ -1,4 +1,4 @@
-//Resetuje polje na pogadjanje sledece reci(continue, playAgain) ali ne restuje vrednost poena na 0
+//Resetuje polje na pogadjanje sledece reci(continue, playAgain) ali ne restuje vrednost na 0
 
 var words = JSON.parse(localStorage.getItem('wordsLocStorage')) || [];
 var word ;//= words[Math.floor(Math.random() * words.length)];
@@ -48,23 +48,27 @@ function insertNewWord() {
 };
 //Function to play random word
 function randomWord() {
+    outputMessages.innerHTML = "";
     for (var i = 0; i < words.length; i++) {
         
         console.log(word)
         if (guessedWordsArray.indexOf(words[i]) == -1 ) {
             word = words[i]
-            console.log(guessedWordsArray)
-            console.log(words)
         }
-    }
+    }  
     if(words.length == guessedWordsArray.length) {
-        console.log("kraj")
-        document.getElementById("guessLetter").disabled = true;
-
+        console.log("Game over!")
+        console.log(words.length)
+        console.log(guessedWordsArray.length)
+        word = ""
+        document.getElementById("guessLetter").disabled = true;//Ne radi???
         outputMessages.innerHTML = messages.lose;
+        
         stop();
-    } 
-};
+    }  
+}; 
+    
+    
 
 //Searching word
 function findWord() {
@@ -153,8 +157,7 @@ function guessLetter() {
                         guessedWordsArray.push(word);
                         randomWord(); 
                         continueGame();    
-                    } 
-                     
+                    }   
                 }    
             
                 //If letter is not in the word
@@ -243,7 +246,7 @@ function playAgain() {
     document.getElementById("points").innerHTML = "";//-------Ne resetuje vrednost na 0
     document.getElementById("guessedWordInfo").innerHTML = " ";
     wrongLetters.innerHTML = [];
-    guessedWordsArray = [];
+    guessedWordsArray = []
     document.getElementById("guessLetter").value = null;
     document.getElementById("messages").textContent = null;
     lives = 5;
