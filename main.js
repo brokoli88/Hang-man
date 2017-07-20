@@ -63,7 +63,7 @@ function randomWord() {
         word = ""
         document.getElementById("guessLetter").disabled = true;//Ne radi???
         outputMessages.innerHTML = messages.lose;
-        
+        document.getElementById("info").style.display = "none";
         stop();
     }  
 }; 
