@@ -1,7 +1,7 @@
 //Resetuje polje na pogadjanje sledece reci(continue, playAgain) ali ne restuje vrednost na 0
 
 var words = JSON.parse(localStorage.getItem('wordsLocStorage')) || [];
-var word ;//= words[Math.floor(Math.random() * words.length)];
+var word ;
 
 
 var newWord = document.getElementById("newWordInput");
@@ -36,7 +36,12 @@ var shoWordInfo = document.getElementById("guessedWordInfo");
         word: "",
         points: "",
         time: "",
-};
+    };
+
+var player = document.getElementById("playersName");
+var players = JSON.parse(localStorage.getItem('playersLocalStorage')) || [];
+
+var scorePerGame = JSON.parse(localStorage.getItem("scoresLocal")) || [];
 
 //Insert new word for guessing
 function insertNewWord() {
@@ -118,7 +123,7 @@ function guessLetter() {
     var pointsConsonants = 0;
     var pointsWrongGuesses = 0;
     var pointsTotal = 0;
-    //If eneter is pressed, letter is submitted (add event listener)
+    //If enter is pressed, letter is submitted (add event listener)
     document.getElementById("guessLetter").addEventListener("keypress", function (e) {
         if(e.keyCode == 13) {
             letter = document.getElementById("guessLetter").value;
@@ -181,6 +186,8 @@ function guessLetter() {
                             outputMessages.innerHTML = messages.lose;
                             document.getElementById("guessLetter").disabled = true;
                             stop();
+                            scorePerGame.push(wordInfo)
+                            localStorage.setItem('scoresLocal', JSON.stringify(scorePerGame));
                         } 
                     }  
                 } 
@@ -270,3 +277,50 @@ function start () {
 var stop = function() {
   clearInterval(seconds);
 };
+
+//If player is new, add new player
+function addPlayer() {
+    if (players.indexOf(playersName.value) === -1) {
+        players.push(playersName.value);
+        localStorage.setItem('playersLocalStorage', JSON.stringify(players));
+    }
+    playersName.value = "";
+    findPlayer();
+};
+
+//Add player or choose if player is in local storage
+function findPlayer() {
+    document.getElementById("choosePlayerList").innerHTML = "";
+   //Loop players
+    for ( var i = 0; i < players.length; i++) {
+        //If letters are part of players name
+        if (players[i].indexOf(playersName.value) >= 0) {
+            //Create new option element
+            var newOption = document.createElement("option");
+            //Set new value (for showing the players name as option)
+            newOption.value = players[i];
+            //Add the newOption to the datalist
+            document.getElementById("choosePlayerList").appendChild(newOption);
+        }
+    }
+    choosePlayer()
+};
+
+//Function for choosing player
+function choosePlayer() {
+    //If enter is pressed, player is chosen
+    document.getElementById("playersName").addEventListener("keypress", function (e) {
+        if (e.keyCode == 13) {
+            player = playersName.value;
+        }
+        console.log("igrate kao " + player)
+    })
+    //playersName.value = "";
+};
+
+
+
+
+
+
+
