@@ -30,7 +30,7 @@ var messages = {
 };
 
 //Object about guessed word information
-var shoWordInfo = document.getElementById("guessedWordInfo");
+var shoWordInfo = document.getElementById("guessedWordInfo"); 
     wordInfo = {
         letters: "",
         word: "",
