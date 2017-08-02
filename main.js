@@ -13,7 +13,7 @@ var scores = JSON.parse(localStorage.getItem("scoresLocalStorage")) || [];
 
 var playersScores = { 
     "name": "", 
-    "gameplays": [], 
+    "gameplays":[], 
 };
 var gameplay = {
     name: "",
