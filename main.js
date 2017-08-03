@@ -208,6 +208,7 @@ var pointsTotal = 0;
 	                            document.getElementById("messages").innerHTML = player + "! " + messages.lose;
                                 document.getElementById("newWordInput").disabled = true;
                                 document.getElementById("chooseWordInput").disabled = true;
+				document.getElementById("guessLetter").disabled = true;
 	                            stop();
                                 wordTime.wordEnded = new Date ();
                                 gameTime.gameEnded = new Date ();
