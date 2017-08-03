@@ -4,6 +4,8 @@ var player;
 
 var words = JSON.parse(localStorage.getItem('wordsLocalStorage')) || [];
 var word ;
+var letter = document.getElementById("guessLetter");
+
 var dashedWord = [];
 var guessingWord = document.getElementById("guessWord");
 var guessedWordsArray = [];
@@ -49,7 +51,7 @@ var wordInfo = {
     letters: "",
     word: "",
     points: "",
-    time: "",
+    time: ""
 };
 
 var vowels = ["a","e","i","o","u"];
@@ -138,9 +140,10 @@ var pointsTotal = 0;
 	    for (var i = 0; i < word.length; i++) {
 	        dashedWord[i] = "_";
 	        guessingWord.textContent = dashedWord;
+
 	    }
 	    guessingWord.textContent = dashedWord.join(' ');
-	    guessLetter();
+        guessLetter();
 	}
 
     //Guess is letter in the word
@@ -149,29 +152,26 @@ var pointsTotal = 0;
 	    //If enter is pressed, letter is submitted (add event listener)
 	    document.getElementById("guessLetter").addEventListener("keypress", function (e) {
 	        if(e.keyCode == 13) {
-	            var letter = document.getElementById("guessLetter").value;
 	            document.getElementById("messages").textContent = "";
-	            if (letter === "") {
+	            if (letter.value === "") {
 	                document.getElementById("messages").innerHTML = messages.unvalidValue;
 	            } else {
 	                var match = false;
 	                for ( var i = 0; i < word.length; i ++) {
-	                    if (word[i] == letter) {
-	                        dashedWord[i] = letter;
+	                    if (word[i] == letter.value) {
+	                        dashedWord[i] = letter.value;
 	                        match = true;
 
 	                        //Add points for vowel
 	                        for ( j = 0; j < vowels.length; j++) {
-	                            if (dashedWord[i] == vowels[j]) {
+	                            if (letter.value == vowels[j]) {
 	                                pointsVowels += 0.5;
-	                                document.getElementById("points").innerHTML =  pointsTotal + pointsVowels;
 	                            }
 	                        }
 
 	                        //Add points for consonant
-	                        if (vowels.indexOf(word[i]) == -1) {
+	                        if (vowels.indexOf(letter.value) == -1) {
 	                            pointsConsonants += 1;
-	                            document.getElementById("points").innerHTML = pointsTotal + pointsConsonants;
 	                        }
 	                    }
 
@@ -181,12 +181,9 @@ var pointsTotal = 0;
 	                        stop();
 	                        numOfLetters();
 	                        guessedWordsArray.push(word);
+                            letter.value = null;
                             randomWord();
                             continueGame();
-                            pointsTotal = 0;
-                            pointsVowels = 0;
-                            pointsConsonants = 0;
-                            pointsWrongGuesses = 0;
 	                    }
 	                }
 	                //If letter is not match
@@ -194,11 +191,10 @@ var pointsTotal = 0;
 
 	                    //Add points for wrong letter
 	                    pointsWrongGuesses += -0.25;
-	                    document.getElementById("points").innerHTML = pointsTotal + pointsWrongGuesses;
 	                    document.getElementById("messages").innerHTML  = messages.wrongLetter;
-	                    if (wrongLettersArray.indexOf(letter) == -1) {
-	                        wrongLettersArray.push(letter);
-	                        document.getElementById("wrongLetters").textContent += letter;
+	                    if (wrongLettersArray.indexOf(letter.value) == -1) {
+	                        wrongLettersArray.push(letter.value);
+	                        document.getElementById("wrongLetters").textContent += letter.value;
 	                        document.getElementById("wrongLetters").textContent = wrongLettersArray.join(',');
 	                        lives--;
 	                        if (lives >= 0) {
@@ -208,6 +204,7 @@ var pointsTotal = 0;
 	                            document.getElementById("messages").innerHTML = player + "! " + messages.lose;
                                 document.getElementById("newWordInput").disabled = true;
                                 document.getElementById("chooseWordInput").disabled = true;
+                                document.getElementById("guessLetter").disabled = true;
 	                            stop();
                                 wordTime.wordEnded = new Date ();
                                 gameTime.gameEnded = new Date ();
@@ -215,8 +212,10 @@ var pointsTotal = 0;
 	                        }
 	                    }
 	                }
-	            pointsTotal = pointsConsonants + pointsVowels + pointsWrongGuesses;
+
 	            }
+                pointsTotal = pointsConsonants + pointsVowels + pointsWrongGuesses;
+                document.getElementById("points").textContent = pointsTotal;
 	        }
 	    guessingWord.innerHTML = dashedWord.join(" ");
 	    document.getElementById("guessLetter").value = "";
@@ -231,12 +230,9 @@ var pointsTotal = 0;
         pointsVowels = 0;
         pointsConsonants = 0;
         pointsWrongGuesses = 0;
-        //Reset time
         document.getElementById("seconds").innerHTML = "";
-        //Reset number of wrong letters
         wrongLetters.innerHTML = [];
         wordInDashes();
-        guessLetter();
         start();
     }
 
@@ -263,7 +259,7 @@ var pointsTotal = 0;
             word = "";
             storeGameplay();
         }
-    };
+    }
 
     //Set timer to start mesuring secondes from 0
 	function countTime() {
@@ -388,15 +384,22 @@ var pointsTotal = 0;
         var gameplaysNum = 0;
         for (var i = 0; i < scores.length; i ++) {
             if (scores[i].name === searchName) {
-                console.log(scores[i])
-                document.getElementById("previousScore").textContent +=  "Name: " + scores[i].name;
+                document.getElementById("previousScore").textContent +=  "Players name: " + scores[i].name;
                 //Loop gameplay
                 for (var j = 0; j < scores[i].gameplays.length; j++) {
                     gameplaysNum++;
-                    var obj  = scores[i].gameplays[j];
-                    document.getElementById("previousScore").textContent += " Game: " + gameplaysNum + " Name: " + scores[i].gameplays[j].name + " Game started: " + scores[i].gameplays[j].game_started + " Game ended: " + scores[i].gameplays[j].game_ended + " Total points in gameplay: " + scores[i].gameplays[j].points;
+
+                    var par = document.createElement("p");
+                    var node = document.createTextNode("Game: " + gameplaysNum + ";  Game started: " + scores[i].gameplays[j].game_started + ";  Game ended: " + scores[i].gameplays[j].game_ended + ";  Total points: " + scores[i].gameplays[j].points);
+                    par.appendChild(node);
+                    var myDiv = document.getElementById("previousScore");
+                    myDiv.appendChild(par);
+
                     for ( var k = 0; k < scores[i].gameplays[j].info.length; k++) {
-                        document.getElementById("previousScore").textContent += " Word: " + scores[i].gameplays[j].info[k].word + " Time: " + scores[i].gameplays[j].info[k].time + " Word started: " + scores[i].gameplays[j].info[k].word_started + " Word ended: " + scores[i].gameplays[j].info[k].word_ended;
+                        var div = document.createElement("div");
+                        node = document.createTextNode("    Word: " + scores[i].gameplays[j].info[k].word + ";  Time: " + scores[i].gameplays[j].info[k].time + ";   Points:" + scores[i].gameplays[j].info[k].points + ";   Word started: " + scores[i].gameplays[j].info[k].word_started + " ;  Word ended: " + scores[i].gameplays[j].info[k].word_ended );
+                        div.appendChild(node);
+                        myDiv.appendChild(div);
                     }
                 }
             }
